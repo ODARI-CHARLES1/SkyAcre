@@ -13,7 +13,7 @@ const Hero = () => {
 
       <div className="container mx-auto px-5 py-24 relative z-10 text-center text-white">
         <h1 className="sm:text-5xl text-3xl mb-6 font-bold">
-          Plan with precision. Grow with confidence.
+          Plan with precision. Grow with confidence.;;;;;;
         </h1>
         <p className="mb-8 leading-relaxed max-w-2xl mx-auto">
           Sky<span className='text-green-500'>A</span>cre offers real-time mapping, drone surveying, and data insights so you know exactly what your land needs.

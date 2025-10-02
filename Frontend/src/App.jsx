@@ -40,11 +40,10 @@ const App = () => {
     <div className="relative overflow-x-hidden">
       <motion.img
         className="w-56 h-56 absolute z-30 pointer-events-none"
-        src="../../src/assets/drone1.png"
+        src="/drone1.png"
         alt="Drone"
         animate={controls}
       />
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutUs />} />
