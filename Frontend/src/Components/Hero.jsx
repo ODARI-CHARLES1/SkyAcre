@@ -1,0 +1,34 @@
+import React from 'react'
+
+const Hero = () => {
+  return (
+    <section
+      className="h-screen flex items-center justify-center bg-cover bg-center relative"
+      style={{
+        backgroundImage:
+          "url('https://i.pinimg.com/1200x/7b/94/9c/7b949ce6357106bb9647f793a0a97343.jpg')",
+      }}
+    >
+      <div className="absolute inset-0 bg-black/50"></div>
+
+      <div className="container mx-auto px-5 py-24 relative z-10 text-center text-white">
+        <h1 className="sm:text-5xl text-3xl mb-6 font-bold">
+          Plan with precision. Grow with confidence.
+        </h1>
+        <p className="mb-8 leading-relaxed max-w-2xl mx-auto">
+          Sky<span className='text-green-500'>A</span>cre offers real-time mapping, drone surveying, and data insights so you know exactly what your land needs.
+        </p>
+        <div className="flex justify-center gap-4">
+          <button className="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-lg text-lg">
+            Book a Service
+          </button>
+          <button className="px-6 py-3 bg-white text-gray-800 hover:bg-gray-200 rounded-lg text-lg">
+            Learn More
+          </button>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export default Hero
