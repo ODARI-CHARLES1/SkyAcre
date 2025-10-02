@@ -17,8 +17,8 @@ const HowItWorks = () => {
             </svg>
           </div>
           <div class="flex-grow pl-4">
-            <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">STEP 1</h2>
-            <p class="leading-relaxed">VHS cornhole pop-up, try-hard 8-bit iceland helvetica. Kinfolk bespoke try-hard cliche palo santo offal.</p>
+            <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">Drone Scanning</h2>
+            <p class="leading-relaxed">Our drones fly over farm capturing high resolution images and sensor data.</p>
           </div>
         </div>
         <div class="flex relative pb-12">
@@ -31,8 +31,8 @@ const HowItWorks = () => {
             </svg>
           </div>
           <div class="flex-grow pl-4">
-            <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">STEP 2</h2>
-            <p class="leading-relaxed">Vice migas literally kitsch +1 pok pok. Truffaut hot chicken slow-carb health goth, vape typewriter.</p>
+            <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">Smart analysis</h2>
+            <p class="leading-relaxed">AI driven software interprets data identifying crop health issues and soil conditions.</p>
           </div>
         </div>
         <div class="flex relative pb-12">
@@ -46,8 +46,8 @@ const HowItWorks = () => {
             </svg>
           </div>
           <div class="flex-grow pl-4">
-            <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">STEP 3</h2>
-            <p class="leading-relaxed">Coloring book nar whal glossier master cleanse umami. Salvia +1 master cleanse blog taiyaki.</p>
+            <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">Actionable reports</h2>
+            <p class="leading-relaxed">Farmers receive clear recommendations for better planning and management.</p>
           </div>
         </div>
         <div class="flex relative pb-12">
@@ -61,8 +61,8 @@ const HowItWorks = () => {
             </svg>
           </div>
           <div class="flex-grow pl-4">
-            <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">STEP 4</h2>
-            <p class="leading-relaxed">VHS cornhole pop-up, try-hard 8-bit iceland helvetica. Kinfolk bespoke try-hard cliche palo santo offal.</p>
+            <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">Smarter decisions </h2>
+            <p class="leading-relaxed">With accurate data at your fingertips,you can take timely action to boost yields,reduce costs and practice sustainable farming.</p>
           </div>
         </div>
         <div class="flex relative">
