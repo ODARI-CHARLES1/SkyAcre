@@ -14,10 +14,11 @@ const Hero = () => {
 
       <div className="container mx-auto px-5 py-24 relative z-10 text-center text-white">
         <h1 className="sm:text-5xl text-3xl mb-6 font-bold">
-          Plan with precision. Grow with confidence.
+          Stay ahead with smart farming.
         </h1>
         <p className="mb-8 leading-relaxed max-w-2xl mx-auto">
-          Sky<span className='text-green-500'>A</span>cre offers real-time mapping, drone surveying, and data insights so you know exactly what your land needs.
+          Sky<span className='text-green-500'>A</span>cre ,we harness the power of drones and smart sensors to scan fields from above,detecting early signs of crop 
+          diseases and analyzing soil properties such as pH,temperature and moisture with precision.
         </p>
         <div className="flex justify-center gap-4">
           <button onClick={()=>navigate("/services")} className="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-lg text-lg">
