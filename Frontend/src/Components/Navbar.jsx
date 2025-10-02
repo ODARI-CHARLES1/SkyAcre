@@ -17,7 +17,6 @@ const Navbar = () => {
       <a onClick={()=>navigate("/contact")} className="mr-5 cursor-pointer hover:text-green-500">Contact</a>
       <a onClick={()=>navigate("/faqs")} className="mr-5 cursor-pointer hover:text-green-500">FAQs</a>
       
-      
     </nav>
        <button onClick={()=>navigate('/signup')} className="inline-flex text-white bg-green-500 border-0 py-2 px-7 focus:outline-none hover:bg-green-600 rounded text-lg">SignUp</button>
   </div>
