@@ -4,10 +4,14 @@ import { config } from 'dotenv';
 import UserRouter from './Routes/userRouter.js';
 import cors from 'cors'
 const app = express();
-app.use(cors())
 app.use(express.json())
 config()
 
+app.use(cors({
+  origin: ["http://localhost:5173", "https://sky-acre-server.vercel.app"], // allow frontend origins
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 
 const mongo_url=process.env.MONGO_URL
 const PORT = process.env.PORT || 3000;
