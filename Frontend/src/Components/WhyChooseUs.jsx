@@ -4,9 +4,9 @@ const WhyChooseUs = () => {
   return (
     <>
       <section className="bg-white py-16 text-center px-6 md:px-20">
-        <h2 className="text-3xl font-bold mb-6">Why Choose AgriFly?</h2>
+        <h2 className="text-3xl font-bold mb-6">Why Choose SkyAcre?</h2>
         <p className="text-gray-700 max-w-3xl mx-auto mb-8">
-          AgriFly combines drone technology, AI, and sustainability to empower farmers with actionable insights.
+          SkyAcre combines drone technology, AI, and sustainability to empower farmers with actionable insights.
           Our services reduce costs, save time, and maximize crop yield.
         </p>
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-600">
