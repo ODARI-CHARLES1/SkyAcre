@@ -60,7 +60,7 @@ const SignUp = () => {
 
   try {
     const res = await axios.post(
-      `https://sky-acre-server.vercel.app/user/register`,
+      `https://sky-acre-58t9.vercel.app/user/register`,
       formData
     );
     toast.success(res.data.message || "Registration successful!");
