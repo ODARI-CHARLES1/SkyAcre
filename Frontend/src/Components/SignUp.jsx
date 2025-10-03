@@ -1,6 +1,61 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const SignUp = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    confirmPassword: '',
+    terms: false
+  })
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target
+    setFormData({
+      ...formData,
+      [name]: type === 'checkbox' ? checked : value
+    })
+  }
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (!formData.email) {
+      toast.error('Please provide your email.')
+      return
+    }
+    if (!validateEmail(formData.email)) {
+      toast.error('Please provide a valid email address.')
+      return
+    }
+    if (!formData.password) {
+      toast.error('Please provide a password.')
+      return
+    }
+    if (!formData.confirmPassword) {
+      toast.error('Please confirm your password.')
+      return
+    }
+    if (formData.password !== formData.confirmPassword) {
+      toast.error('Passwords do not match.')
+      return
+    }
+    if (!formData.terms) {
+      toast.error('Please accept the Terms and Conditions.')
+      return
+    }
+
+    // If all validations pass, proceed with form submission
+    toast.success('Account created successfully!')
+    // Here you can add logic to submit the form data to your backend
+  }
+
   return (
     <>
       <section className="bg-gray-50 dark:bg-gray-900">
@@ -9,14 +64,14 @@ const SignUp = () => {
             href="#"
             className="flex items-center mb-6 text-2xl font-semibold text-white dark:text-white-700"
           >
-           Sky<span className='text-green-500'>A</span> cre
+            Sky<span className='text-green-500'>A</span> cre
           </a>
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Create an account
               </h1>
-              <form className="space-y-4 md:space-y-6" action="#">
+              <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
                 <div>
                   <label
                     htmlFor="email"
@@ -29,7 +84,8 @@ const SignUp = () => {
                     name="email"
                     id="email"
                     placeholder="name@company.com"
-                    required
+                    value={formData.email}
+                    onChange={handleChange}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-400 dark:focus:border-green-400"
                   />
                 </div>
@@ -45,23 +101,25 @@ const SignUp = () => {
                     name="password"
                     id="password"
                     placeholder="••••••••"
-                    required
+                    value={formData.password}
+                    onChange={handleChange}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-400 dark:focus:border-green-400"
                   />
                 </div>
                 <div>
                   <label
-                    htmlFor="confirm-password"
+                    htmlFor="confirmPassword"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Confirm password
                   </label>
                   <input
                     type="password"
-                    name="confirm-password"
+                    name="confirmPassword"
                     id="confirm-password"
                     placeholder="••••••••"
-                    required
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-400 dark:focus:border-green-400"
                   />
                 </div>
@@ -71,7 +129,9 @@ const SignUp = () => {
                       id="terms"
                       aria-describedby="terms"
                       type="checkbox"
-                      required
+                      name="terms"
+                      checked={formData.terms}
+                      onChange={handleChange}
                       className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-green-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-green-400 dark:ring-offset-gray-800"
                     />
                   </div>
@@ -110,6 +170,7 @@ const SignUp = () => {
           </div>
         </div>
       </section>
+      <ToastContainer />
     </>
   )
 }
