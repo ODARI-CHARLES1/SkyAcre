@@ -21,8 +21,8 @@ const WhyUs = () => {
         </a>
       </div>
       <div class="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-l-2 border-gray-200 border-opacity-60">
-        <h2 class="text-lg sm:text-xl text-gray-900 font-medium title-font mb-2">The Catalyzer</h2>
-        <p class="leading-relaxed text-base mb-4">Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.</p>
+        <h2 class="text-lg sm:text-xl text-gray-900 font-medium title-font mb-2">Remote Access</h2>
+        <p class="leading-relaxed text-base mb-4">Access insights to data on your farm from anywhere you are with the touch of your smartphone.</p>
         <a class="text-green-500 inline-flex items-center" href='/services'>Learn More
           <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
             <path d="M5 12h14M12 5l7 7-7 7"></path>
@@ -30,8 +30,8 @@ const WhyUs = () => {
         </a>
       </div>
       <div class="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-l-2 border-gray-200 border-opacity-60">
-        <h2 class="text-lg sm:text-xl text-gray-900 font-medium title-font mb-2">Neptune</h2>
-        <p class="leading-relaxed text-base mb-4">Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.</p>
+        <h2 class="text-lg sm:text-xl text-gray-900 font-medium title-font mb-2">Customer Support</h2>
+        <p class="leading-relaxed text-base mb-4">24/7 customer support on hwo to use our product as well as expert agricultural advice.</p>
         <a class="text-green-500 inline-flex items-center" href='/services'>Learn More
           <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
             <path d="M5 12h14M12 5l7 7-7 7"></path>
@@ -39,8 +39,8 @@ const WhyUs = () => {
         </a>
       </div>
       <div class="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-l-2 border-gray-200 border-opacity-60">
-        <h2 class="text-lg sm:text-xl text-gray-900 font-medium title-font mb-2">Melanchole</h2>
-        <p class="leading-relaxed text-base mb-4">Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.</p>
+        <h2 class="text-lg sm:text-xl text-gray-900 font-medium title-font mb-2">Community and partnerships</h2>
+        <p class="leading-relaxed text-base mb-4">Interact with other farmers around the globe and get market for your products as well as additional agricultural insights.</p>
         <a class="text-green-500 inline-flex items-center" href='/services'>Learn More
           <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
             <path d="M5 12h14M12 5l7 7-7 7"></path>
@@ -48,7 +48,7 @@ const WhyUs = () => {
         </a>
       </div>
     </div>
-    <button class="flex mx-auto mt-16 text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">Button</button>
+    <button class="flex mx-auto mt-16 text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg"><a href="/services">See what we offer</a></button>
   </div>
 </section>
     </>
