@@ -8,7 +8,7 @@ app.use(express.json())
 config()
 
 app.use(cors({
-  origin: ["http://localhost:5173", "https://sky-acre-server.vercel.app"], // allow frontend origins
+  origin: ["http://localhost:5173", "https://sky-acre-58t9.vercel.app/"], // allow frontend origins
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
