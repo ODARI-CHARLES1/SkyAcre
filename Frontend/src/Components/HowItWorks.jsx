@@ -1,49 +1,94 @@
+
 import React from "react";
 import { motion } from "framer-motion";
 
 const steps = [
   {
     title: "STEP 1",
-    desc: "VHS cornhole pop-up, try-hard 8-bit iceland helvetica. Kinfolk bespoke try-hard cliche palo santo offal.",
+    desc: "Create your SkyAcre Account",
     icon: (
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+      <svg
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        className="w-5 h-5"
+        viewBox="0 0 24 24"
+      >
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      </svg>
     ),
   },
   {
     title: "STEP 2",
-    desc: "Vice migas literally kitsch +1 pok pok. Truffaut hot chicken slow-carb health goth, vape typewriter.",
+    desc: "Login to your SkyAcre account",
     icon: (
-      <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+      <svg
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        className="w-5 h-5"
+        viewBox="0 0 24 24"
+      >
+        <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+      </svg>
     ),
   },
   {
     title: "STEP 3",
-    desc: "Coloring book narwhal glossier master cleanse umami. Salvia +1 master cleanse blog taiyaki.",
+    desc: "Explore your dashboard and manage your settings with ease.",
     icon: (
-      <>
-        <circle cx="12" cy="5" r="3"></circle>
-        <path d="M12 22V8M5 12H2a10 10 0 0020 0h-3"></path>
-      </>
+      <svg
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        className="w-5 h-5"
+        viewBox="0 0 24 24"
+      >
+        <circle cx="12" cy="5" r="3" />
+        <path d="M12 22V8M5 12H2a10 10 0 0020 0h-3" />
+      </svg>
     ),
   },
   {
     title: "STEP 4",
-    desc: "VHS cornhole pop-up, try-hard 8-bit iceland helvetica. Kinfolk bespoke try-hard cliche palo santo offal.",
+    desc: "Subscribe to our daily blogs",
     icon: (
-      <>
-        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
-        <circle cx="12" cy="7" r="4"></circle>
-      </>
+      <svg
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        className="w-5 h-5"
+        viewBox="0 0 24 24"
+      >
+        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>
     ),
   },
   {
     title: "FINISH",
-    desc: "Pitchfork ugh tattooed scenester echo park gastropub whatever cold-pressed retro.",
+    desc: "Congratulations! You can now access all the resources we prepared just for you.",
     icon: (
-      <>
-        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
-        <path d="M22 4L12 14.01l-3-3"></path>
-      </>
+      <svg
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        className="w-5 h-5"
+        viewBox="0 0 24 24"
+      >
+        <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+        <path d="M22 4L12 14.01l-3-3" />
+      </svg>
     ),
   },
 ];
@@ -62,9 +107,7 @@ const HowItWorks = () => {
           {steps.map((step, index) => (
             <motion.div
               key={index}
-              className={`flex relative pb-12 ${
-                index === steps.length - 1 ? "pb-0" : ""
-              }`}
+              className={`flex relative ${index === steps.length - 1 ? "" : "pb-12"}`}
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
@@ -79,17 +122,7 @@ const HowItWorks = () => {
 
               {/* Icon */}
               <div className="flex-shrink-0 w-10 h-10 rounded-full bg-green-500 inline-flex items-center justify-center text-white relative z-10">
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  className="w-5 h-5"
-                  viewBox="0 0 24 24"
-                >
-                  {step.icon}
-                </svg>
+                {step.icon}
               </div>
 
               {/* Text */}
@@ -108,3 +141,4 @@ const HowItWorks = () => {
 };
 
 export default HowItWorks;
+
