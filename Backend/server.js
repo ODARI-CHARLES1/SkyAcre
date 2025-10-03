@@ -19,6 +19,9 @@ app.use("/user",UserRouter)
 app.get("/testing",(req,res)=>{
   res.send("Testing...")
 })
+app.get("/",(req,res)=>{
+  res.send("testing..")
+})
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
