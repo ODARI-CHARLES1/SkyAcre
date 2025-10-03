@@ -10,7 +10,7 @@ import PricingPlans from './Pages/PublicPage/PricingPlans'
 import Services from './Pages/PublicPage/Services'
 import Blog from "./Pages/PublicPage/Blog"
 import SignUp from './Components/SignUp'
-
+import Farmer from './Pages/Farmers/Farmer'
 const App = () => {
   const controls = useAnimation()
 
@@ -53,6 +53,7 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/resources" element={<Blog />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/farmer" element={<Farmer/>}/>
       </Routes>
     </div>
   )
