@@ -2,9 +2,9 @@ import React, { useState } from "react";
 
 const faqs = [
   {
-    question: "What is AgriFly?",
+    question: "What is SkyAcre?",
     answer:
-      "AgriFly is a smart farming solution that uses drones to monitor crops, optimize yields, and provide farmers with real-time insights.",
+      "SkyAcre is a smart farming solution that uses drones to monitor crops, optimize yields, and provide farmers with real-time insights using tested and approved AI-models.",
   },
   {
     question: "How can drones improve farming?",
@@ -12,14 +12,14 @@ const faqs = [
       "Drones can map fields, monitor plant health, detect irrigation issues, and reduce the need for manual inspections—saving time and resources.",
   },
   {
-    question: "Is AgriFly suitable for small farms?",
+    question: "Is SkyAcre suitable for small farms?",
     answer:
-      "Yes, AgriFly is designed to help both small-scale and large-scale farms adopt precision agriculture techniques affordably.",
+      "Yes, SkyAcre is designed to help both small-scale and large-scale farms adopt precision agriculture techniques affordably.",
   },
   {
-    question: "Do I need technical expertise to use AgriFly?",
+    question: "Do I need technical expertise to use SkyAcre?",
     answer:
-      "Not at all. AgriFly provides an easy-to-use platform, and our team supports farmers with setup, training, and ongoing assistance.",
+      "Not at all.SkyAcre provides an easy-to-use platform, and our team supports farmers with setup, training, and ongoing assistance.",
   },
 ];
 
@@ -37,7 +37,7 @@ const FAQ = () => {
           Frequently Asked Questions
         </h2>
         <p className="text-gray-600 mb-12">
-          Everything you need to know about AgriFly and how it can transform
+          Everything you need to know about SkyAcre and how it can transform
           your farming experience.
         </p>
       </div>
