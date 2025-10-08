@@ -12,7 +12,7 @@ const Team = () => {
     <div class="flex flex-wrap -m-4">
       <div class="p-4 lg:w-1/5 md:w-1/2">
         <div class="h-full flex flex-col items-center text-center">
-          <img alt="team" class="flex-shrink-0 rounded-lg w-full h-70 object-cover object-center mb-4" src="../src/assets/PaulMuyali.jpg"/>
+          <img alt="team" class="flex-shrink-0 rounded-lg w-full h-70 object-cover object-center mb-4" src="/src/assets/PaulMuyali.jpg"/>
           <div class="w-full">
             <h2 class="title-font font-medium text-lg text-gray-900">Paul Muyali</h2>
             <h3 class="text-gray-500 mb-3">Backend Developer</h3>
@@ -83,7 +83,7 @@ const Team = () => {
       </div>
       <div class="p-4 lg:w-1/5 md:w-1/2">
         <div class="h-full flex flex-col items-center text-center">
-          <img alt="team" class="flex-shrink-0 rounded-lg w-full h-70 object-cover object-center mb-4" src="../src/assets/Terryanne.jpg"/>
+          <img alt="team" class="flex-shrink-0 rounded-lg w-full h-70 object-cover object-center mb-4" src="/src/assets/Terryanne.jpg"/>
           <div class="w-full">
             <h2 class="title-font font-medium text-lg text-gray-900">Terry-Anne Muinde</h2>
             <h3 class="text-gray-500 mb-3">AI Models</h3>
