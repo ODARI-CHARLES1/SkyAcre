@@ -18,7 +18,8 @@ const App = () => {
     const flyRandom = () => {
       const randomX = Math.random() * (window.innerWidth - 200)
       const randomY = Math.random() * (window.innerHeight - 200)
-
+      console.log(randomX)
+      console.log(randomY)
       controls.start({
         x: randomX,
         y: randomY,
