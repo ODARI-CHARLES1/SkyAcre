@@ -52,3 +52,5 @@ Thumbs.db
 
 .dist
 .env
+package-lock.json
+.package-lock.json
