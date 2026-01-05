@@ -9,7 +9,7 @@ yarn.lock
 .pnpm-debug.log
 
 # --- Build outputs ---
-dist/
+.dist/
 build/
 .next/
 out/
@@ -51,3 +51,4 @@ Thumbs.db
 
 
 .dist
+.env
