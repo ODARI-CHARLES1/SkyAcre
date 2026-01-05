@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 const SignUp = () => {
+  const navigate=useNavigate()
   const [formData, setFormData] = useState({
+    name:'',
     email: '',
     password: '',
     confirmPassword: '',
     terms: false
   })
-
+  
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
     setFormData({
@@ -23,38 +26,55 @@ const SignUp = () => {
     return emailRegex.test(email)
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (!formData.email) {
-      toast.error('Please provide your email.')
-      return
-    }
-    if (!validateEmail(formData.email)) {
-      toast.error('Please provide a valid email address.')
-      return
-    }
-    if (!formData.password) {
-      toast.error('Please provide a password.')
-      return
-    }
-    if (!formData.confirmPassword) {
-      toast.error('Please confirm your password.')
-      return
-    }
-    if (formData.password !== formData.confirmPassword) {
-      toast.error('Passwords do not match.')
-      return
-    }
-    if (!formData.terms) {
-      toast.error('Please accept the Terms and Conditions.')
-      return
-    }
-
-    // If all validations pass, proceed with form submission
-    toast.success('Account created successfully!')
-    // Here you can add logic to submit the form data to your backend
+  if (!formData.name) {
+    toast.error("Please provide your name.");
+    return;
   }
+  if (!formData.email) {
+    toast.error("Please provide your email.");
+    return;
+  }
+  if (!validateEmail(formData.email)) {
+    toast.error("Please provide a valid email address.");
+    return;
+  }
+  if (!formData.password) {
+    toast.error("Please provide a password.");
+    return;
+  }
+  if (!formData.confirmPassword) {
+    toast.error("Please confirm your password.");
+    return;
+  }
+  if (formData.password !== formData.confirmPassword) {
+    toast.error("Passwords do not match.");
+    return;
+  }
+  if (!formData.terms) {
+    toast.error("Please accept the Terms and Conditions.");
+    return;
+  }
+
+  try {
+    const res = await axios.post(
+      `https://sky-acre-58t9.vercel.app/user/register`,
+      formData
+    );
+    toast.success(res.data.message || "Registration successful!");
+    navigate("/farmer")
+    localStorage.setItem("name",res.data.user.name)
+  } catch (err) {
+    if (err.response?.data?.message) {
+      toast.error(err.response.data.message);
+    } else {
+      toast.error(err.message || "Something went wrong. Please try again.");
+    }
+  }
+};
+
 
   return (
     <>
@@ -74,6 +94,23 @@ const SignUp = () => {
               </h1>
               <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
                 <div>
+                  <label
+                    htmlFor="name"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    placeholder="John Doe"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-400 dark:focus:border-green-400"
+                  />
+                </div>
+                   <div>
                   <label
                     htmlFor="email"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
