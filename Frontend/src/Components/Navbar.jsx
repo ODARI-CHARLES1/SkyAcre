@@ -27,7 +27,7 @@ const Navbar = () => {
   return (
     // Header element with styling for the navbar
     <header className="text-gray-600 shadow-sm w-full bg-white body-font">
-      // Container div with max width and flex layout
+
       <div className="container mx-auto flex p-5 items-center justify-between">
         {/* Logo section */}
         <a
@@ -61,7 +61,7 @@ const Navbar = () => {
           </a>
         </nav>
 
-        // Conditional rendering: show UserButton if signed in, otherwise show sign in/up buttons
+
         {isSignedIn ? (
           <UserButton /> // Clerk's user button for signed-in users
         ) : (
