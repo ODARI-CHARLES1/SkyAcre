@@ -35,7 +35,7 @@ const Navbar = () => {
           className="flex title-font font-medium items-center text-gray-900 cursor-pointer"
         >
           <span className="ml-3 text-3xl">
-            Sky<span className="text-green-500">A</span>cre // Logo text with green 'A'
+            Sky<span className="text-green-500">A</span>cre 
           </span>
         </a>
 
@@ -113,7 +113,7 @@ const Navbar = () => {
             <a onClick={() => { navigate("/faqs"); setMenuOpen(false); }} className="cursor-pointer hover:text-green-500">
               FAQs
             </a>
-            // Conditional auth buttons for mobile
+    
             {isSignedIn ? (
               <UserButton />
             ) : (
