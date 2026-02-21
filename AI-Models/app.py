@@ -1,3 +1,4 @@
+
 # This file sets up a Flask web server for the AI microservice.
 # It loads pre-trained machine learning models and provides an API endpoint for crop and fertilizer predictions.
 
