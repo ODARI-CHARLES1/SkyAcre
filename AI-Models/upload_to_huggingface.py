@@ -22,6 +22,11 @@ def get_hf_token():
     token = os.environ.get('HF_TOKEN')
     if token is None:
         token = getpass.getpass("Enter your Hugging Face token: ")
+    
+    # Validate token is not empty
+    if not token or not token.strip():
+        raise ValueError("Hugging Face token cannot be empty. Set HF_TOKEN env var or enter when prompted.")
+    
     return token
 
 
