@@ -9,8 +9,12 @@ Usage:
 """
 
 import os
+from dotenv import load_dotenv
 from huggingface_hub import HfApi, create_repo
 import getpass
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Configuration
 MODEL_FILE = 'skyacre_cow_disease_model.h5'
