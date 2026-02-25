@@ -49,6 +49,12 @@ Thumbs.db
 *.seed
 *.pid.lock
 
+# --- ML Model files ---
+*.h5
+*.keras
+best_model.keras
+skyacre_cow_disease_model.keras
+training_history.png
 
 .dist
 .env
