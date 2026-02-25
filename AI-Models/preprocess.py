@@ -31,7 +31,8 @@ CONFIG = {
     # Class labels
     'classes': {
         'foot-and-mouth': 0,  # Diseased
-        'healthy': 1          # Healthy
+        'lumpy': 1,          # Lumpy Skin Disease
+        'healthy': 2         # Healthy
     },
     
     # Split ratios
