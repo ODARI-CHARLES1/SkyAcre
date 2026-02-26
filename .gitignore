@@ -60,3 +60,5 @@ training_history.png
 .env
 package-lock.json
 .package-lock.json
+# Ignore preprocessed numpy arrays
+AI-Models/Data/preprocessed/*.npy
