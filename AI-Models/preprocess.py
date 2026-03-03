@@ -1,4 +1,4 @@
-"""
+dsssssssssss"""
 Data Preprocessing Pipeline for Cow Disease Classification
 
 This pipeline processes images of cows for the CNN model to classify
