@@ -12,7 +12,7 @@ import os
 
 # Available backend options are: "jax", "torch", "tensorflow".
 # Using tensorflow as it is listed in requirements.txt
-os.environ["KERAS_BACKEND"] = "jax"
+os.environ["KERAS_BACKEND"] = "tensorflow"
 # To use the Hugging Face Hub, a token needs to be available.
 # It can be set as an environment variable `HF_TOKEN`.
 # A .env file can be used to store this token.
