@@ -6,9 +6,10 @@ import os
 import io
 
 # Set Keras backend
-os.environ["KERAS_BACKEND"] = "tensorflow"
+os.environ["KERAS_BACKEND"] = "jax"
 
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import numpy as np
 import joblib
 import keras
@@ -16,6 +17,9 @@ from PIL import Image
 
 # Create a Flask application instance
 app = Flask(__name__)
+
+# Enable CORS for all routes
+CORS(app)
 
 # --- Fertilizer & Crop Prediction Model Loading ---
 
@@ -50,7 +54,7 @@ cow_disease_model = None
 print(f"Loading cow disease model from Hugging Face repo: {COW_DISEASE_REPO_ID}...")
 try:
     hf_path = f"hf://{COW_DISEASE_REPO_ID}"
-    cow_disease_model = keras.saving.load_.model(hf_path)
+    cow_disease_model = keras.saving.load_model(hf_path)
     print("Cow disease model loaded successfully!")
     cow_disease_model.summary()
 except Exception as e:
@@ -104,13 +108,16 @@ def predict_fertilizer_crop():
 
 def preprocess_image(image_bytes, target_size=(224, 224)):
     """Preprocesses a single image for the cow disease model."""
-    img = Image.open(io.BytesIO(image_bytes))
-    img = img.convert('RGB')
-    img = img.resize(target_size)
-    img_array = np.array(img)
-    img_array = img_array / 255.0  # Normalize to [0, 1]
-    img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
-    return img_array
+    try:
+        img = Image.open(io.BytesIO(image_bytes))
+        img = img.convert('RGB')
+        img = img.resize(target_size)
+        img_array = np.array(img)
+        img_array = img_array / 255.0  # Normalize to [0, 1]
+        img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
+        return img_array
+    except Exception as e:
+        raise ValueError(f"Invalid or corrupt image: {str(e)}")
 
 
 @app.route('/predict/cow-disease', methods=['POST'])
@@ -126,8 +133,25 @@ def predict_cow_disease():
     if file.filename == '':
         return jsonify({"error": "No selected file."}), 400
 
+    # Validate file type
+    allowed_extensions = {'jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'}
+    file_ext = file.filename.rsplit('.', 1)[-1].lower() if '.' in file.filename else ''
+    if file_ext not in allowed_extensions:
+        return jsonify({
+            "error": f"Invalid file type. Allowed types: {', '.join(allowed_extensions)}"
+        }), 400
+
+    # Read file content for size validation
+    image_bytes = file.read()
+    
+    # Validate file size (max 10MB)
+    max_size = 10 * 1024 * 1024  # 10 MB
+    if len(image_bytes) > max_size:
+        return jsonify({
+            "error": f"File too large. Maximum size is 10MB, got {len(image_bytes) / (1024*1024):.2f}MB"
+        }), 400
+
     try:
-        image_bytes = file.read()
         processed_image = preprocess_image(image_bytes)
         
         # Make prediction
@@ -140,7 +164,7 @@ def predict_cow_disease():
         
         return jsonify({
             "predicted_class": predicted_class_name,
-            "confidence": f"{confidence:.4f}",
+            "confidence": round(confidence, 4),
             "all_predictions": {label: float(conf) for label, conf in zip(COW_DISEASE_CLASS_LABELS.values(), predictions[0])}
         })
 
