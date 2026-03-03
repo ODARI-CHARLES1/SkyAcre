@@ -6,7 +6,7 @@ import os
 import io
 
 # Set Keras backend
-os.environ["KERAS_BACKEND"] = "jax"
+os.environ["KERAS_BACKEND"] = "tensorflow"
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
