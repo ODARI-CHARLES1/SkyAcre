@@ -168,6 +168,10 @@ def predict_cow_disease():
             "all_predictions": {label: float(conf) for label, conf in zip(COW_DISEASE_CLASS_LABELS.values(), predictions[0])}
         })
 
+    except ValueError as e:
+        # Handle invalid/corrupt image errors
+        return jsonify({"error": str(e)}), 400
+    
     except Exception as e:
         return jsonify({"error": f"An error occurred during prediction: {str(e)}"}), 500
 
