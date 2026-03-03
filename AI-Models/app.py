@@ -55,11 +55,26 @@ print(f"Loading cow disease model from Hugging Face repo: {COW_DISEASE_REPO_ID}.
 try:
     hf_path = f"hf://{COW_DISEASE_REPO_ID}"
     cow_disease_model = keras.saving.load_model(hf_path)
-    print("Cow disease model loaded successfully!")
+    print("Cow disease model loaded successfully from HuggingFace!")
     cow_disease_model.summary()
 except Exception as e:
-    print(f"Error loading cow disease model: {e}")
-    print("Please ensure `huggingface_hub` is installed and you are logged in if the repo is private.")
+    print(f"Error loading from HuggingFace: {e}")
+    print("Attempting to load from local model file...")
+    
+    # Try loading from local file as fallback
+    local_model_path = os.path.join(BASE_DIR, "best_model.keras")
+    if os.path.exists(local_model_path):
+        try:
+            cow_disease_model = keras.saving.load_model(local_model_path)
+            print("Cow disease model loaded successfully from local file!")
+            cow_disease_model.summary()
+        except Exception as e2:
+            print(f"Error loading local model: {e2}")
+    else:
+        print(f"Local model file not found at: {local_model_path}")
+
+if cow_disease_model is None:
+    print("WARNING: Cow disease model is not available. /predict/cow-disease endpoint will return 503.")
 
 
 # --- API Routes ---
