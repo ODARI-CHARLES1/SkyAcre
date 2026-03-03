@@ -1,5 +1,5 @@
 import os
-os.environ["KERAS_BACKEND"] = "jax"
+os.environ["KERAS_BACKEND"] = "tensorflow"
 import keras
 """
 Data Preprocessing Pipeline for Cow Disease Classification
