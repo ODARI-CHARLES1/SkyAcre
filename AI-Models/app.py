@@ -47,7 +47,7 @@ except Exception as e:
 
 # --- Cow Disease Classification Model Loading ---
 
-COW_DISEASE_REPO_ID = "Storm00212/SkyAcre"
+COW_DISEASE_REPO_ID = "Storm00212/SkyAcre_cow_model"
 COW_DISEASE_CLASS_LABELS = {0: 'foot-and-mouth', 1: 'lumpy', 2: 'healthy'}
 cow_disease_model = None
 
