@@ -202,9 +202,9 @@ def load_dataset_exploration(data_dir):
     
     # Report corrupt images
     if stats['corrupt_images']:
-        print(f"\n⚠️  WARNING: Found {len(stats['corrupt_images'])} corrupt images!")
+        print(f"\n[WARNING] Found {len(stats['corrupt_images'])} corrupt images!")
     else:
-        print(f"\n✅ All images are valid and readable.")
+        print(f"\n[OK] All images are valid and readable.")
     
     # Visualize class distribution
     plt.figure(figsize=(10, 6))
@@ -228,7 +228,7 @@ def load_dataset_exploration(data_dir):
     plt.tight_layout()
     plt.savefig(os.path.join(Config.OUTPUT_DIR, 'class_distribution.png'), dpi=150)
     plt.show()
-    print(f"\n✅ Class distribution plot saved to {Config.OUTPUT_DIR}/class_distribution.png")
+    print(f"\n   [OK] Class distribution plot saved to {Config.OUTPUT_DIR}/class_distribution.png")
     
     return stats
 
@@ -315,14 +315,14 @@ def load_and_preprocess_dataset(data_dir, class_labels, img_size=(Config.IMG_HEI
                 if (i + 1) % 500 == 0:
                     print(f"  Processed {i + 1}/{len(image_files)} images...")
             except Exception as e:
-                print(f"  ⚠️  Error processing {img_path}: {e}")
+                print(f"   [WARNING] Error processing {img_path}: {e}")
         
         print(f"  Completed: {len(image_files)} images")
     
     X = np.array(images)
     y = np.array(labels)
     
-    print(f"\n✅ Preprocessing complete!")
+    print(f"\n[OK] Preprocessing complete!")
     print(f"   Total images: {len(X)}")
     print(f"   Image shape: {X[0].shape}")
     print(f"   Data type: {X.dtype}")
@@ -386,7 +386,7 @@ def create_data_augmentation():
     # Validation/test data generator (no augmentation, just normalization)
     val_datagen = ImageDataGenerator()
     
-    print("✅ Data augmentation pipeline created:")
+    print("[OK] Data augmentation pipeline created:")
     print("   - Random rotation: ±20 degrees")
     print("   - Random horizontal/vertical flipping")
     print("   - Random brightness adjustment: 0.8-1.2")
@@ -435,7 +435,7 @@ def visualize_augmentations(sample_image, train_datagen, save_path=None):
     
     if save_path:
         plt.savefig(save_path, dpi=150)
-        print(f"   ✅ Augmentation visualization saved to {save_path}")
+        print(f"   [OK] Augmentation visualization saved to {save_path}")
     
     plt.show()
 
@@ -521,7 +521,7 @@ def save_split_data(X_train, X_val, X_test, y_train, y_val, y_test, output_dir):
     np.save(os.path.join(output_dir, 'y_train.npy'), y_train)
     np.save(os.path.join(output_dir, 'y_val.npy'), y_val)
     np.save(os.path.join(output_dir, 'y_test.npy'), y_test)
-    print(f"\n✅ Split data saved to {output_dir}")
+    print(f"\n[OK] Split data saved to {output_dir}")
 
 
 # =============================================================================
@@ -705,7 +705,7 @@ def compile_model(model, learning_rate=Config.INITIAL_LEARNING_RATE):
         metrics=['accuracy']
     )
     
-    print(f"\n✅ Model compiled with:")
+    print(f"\n[OK] Model compiled with:")
     print(f"   - Optimizer: Adam (lr={learning_rate})")
     print(f"   - Loss: Sparse Categorical Crossentropy")
     print(f"   - Metrics: Accuracy")
@@ -773,7 +773,7 @@ def create_callbacks(output_dir):
         )
     ]
     
-    print("✅ Callbacks configured:")
+    print("[OK] Callbacks configured:")
     print("   - EarlyStopping: patience=10, restore_best_weights=True")
     print("   - ModelCheckpoint: save best model based on val_accuracy")
     print("   - ReduceLROnPlateau: factor=0.5, patience=5")
@@ -819,7 +819,7 @@ def train_model(model, train_generator, val_generator,
         verbose=1
     )
     
-    print("\n✅ Training completed!")
+    print("\n[OK] Training completed!")
     
     return history
 
@@ -946,7 +946,7 @@ def comprehensive_evaluation(model, X_test, y_test, class_labels=Config.CLASS_LA
     if output_dir:
         plt.savefig(os.path.join(output_dir, 'confusion_matrix.png'), dpi=150)
     plt.show()
-    print(f"\n   ✅ Confusion matrix saved")
+    print(f"\n   [OK] Confusion matrix saved")
     
     # 4. ROC-AUC
     print(f"\n4. ROC-AUC (One-vs-Rest):")
@@ -969,7 +969,7 @@ def comprehensive_evaluation(model, X_test, y_test, class_labels=Config.CLASS_LA
         plot_roc_curves(y_test, y_pred_proba, class_labels, output_dir)
         
     except Exception as e:
-        print(f"   ⚠️  Error computing ROC-AUC: {e}")
+        print(f"   [WARNING] Error computing ROC-AUC: {e}")
         results['roc_auc_ovr'] = None
         results['roc_auc_ovo'] = None
     
@@ -1053,7 +1053,7 @@ def plot_training_history(history, output_dir=None):
     if output_dir:
         plt.savefig(os.path.join(output_dir, 'training_history.png'), dpi=150)
     plt.show()
-    print("✅ Training history plot saved")
+    print("[OK] Training history plot saved")
 
 
 def visualize_feature_maps(model, X_sample, layer_name=None, output_dir=None):
@@ -1097,7 +1097,7 @@ def visualize_feature_maps(model, X_sample, layer_name=None, output_dir=None):
         if output_dir:
             plt.savefig(os.path.join(output_dir, 'feature_maps.png'), dpi=150)
         plt.show()
-        print("✅ Feature maps visualization saved")
+        print("[OK] Feature maps visualization saved")
 
 
 def visualize_misclassified_examples(model, X_test, y_test, 
@@ -1126,7 +1126,7 @@ def visualize_misclassified_examples(model, X_test, y_test,
     misclassified_idx = np.where(y_pred != y_test)[0]
     
     if len(misclassified_idx) == 0:
-        print("✅ No misclassified examples!")
+        print("[OK] No misclassified examples!")
         return
     
     print(f"Found {len(misclassified_idx)} misclassified examples out of {len(y_test)}")
@@ -1165,7 +1165,7 @@ def visualize_misclassified_examples(model, X_test, y_test,
     if output_dir:
         plt.savefig(os.path.join(output_dir, 'misclassified_examples.png'), dpi=150)
     plt.show()
-    print("✅ Misclassified examples visualization saved")
+    print("[OK] Misclassified examples visualization saved")
 
 
 # =============================================================================
@@ -1188,8 +1188,8 @@ def save_model(model, output_dir, model_name=Config.MODEL_NAME):
     model_path = os.path.join(output_dir, model_name)
     model.save(model_path)
     
-    print(f"✅ Model saved to: {model_path}")
-    print(f"   Model size: {os.path.getsize(model_path) / (1024*1024):.2f} MB")
+    print(f"[OK] Model saved to: {model_path}")
+    print(f"   [OK] Model size: {os.path.getsize(model_path) / (1024*1024):.2f} MB")
     
     return model_path
 
