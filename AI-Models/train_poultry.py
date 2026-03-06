@@ -1056,6 +1056,185 @@ def plot_training_history(history, output_dir=None):
     print("[OK] Training history plot saved")
 
 
+def detect_overfitting(history, output_dir=None):
+    """
+    Detect overfitting/underfitting by analyzing training history.
+    
+    Args:
+        history: Keras training history
+        output_dir: Directory to save plot
+        
+    Returns:
+        Dictionary with overfitting analysis results
+    """
+    print("\n" + "=" * 70)
+    print("OVERFITTING/UNDERFITTING DETECTION")
+    print("=" * 70)
+    
+    train_acc = history.history['accuracy']
+    val_acc = history.history['val_accuracy']
+    train_loss = history.history['loss']
+    val_loss = history.history['val_loss']
+    
+    results = {}
+    
+    # Calculate final metrics
+    final_train_acc = train_acc[-1]
+    final_val_acc = val_acc[-1]
+    final_train_loss = train_loss[-1]
+    final_val_loss = val_loss[-1]
+    
+    # Gap analysis (key indicator of overfitting)
+    acc_gap = final_train_acc - final_val_acc
+    loss_gap = final_val_loss - final_train_loss
+    
+    results['final_train_accuracy'] = final_train_acc
+    results['final_val_accuracy'] = final_val_acc
+    results['final_train_loss'] = final_train_loss
+    results['final_val_loss'] = final_val_loss
+    results['accuracy_gap'] = acc_gap
+    results['loss_gap'] = loss_gap
+    
+    print(f"\nFinal Training Metrics:")
+    print(f"   Training Accuracy: {final_train_acc:.4f}")
+    print(f"   Validation Accuracy: {final_val_acc:.4f}")
+    print(f"   Training Loss: {final_train_loss:.4f}")
+    print(f"   Validation Loss: {final_val_loss:.4f}")
+    
+    print(f"\nGap Analysis:")
+    print(f"   Accuracy Gap (Train - Val): {acc_gap:.4f}")
+    print(f"   Loss Gap (Val - Train): {loss_gap:.4f}")
+    
+    # Diagnosis
+    print(f"\nDiagnosis:")
+    
+    if acc_gap > 0.15 and loss_gap > 0.1:
+        print("   [WARNING] OVERFITTING DETECTED!")
+        print("   The model is memorizing training data but not generalizing well.")
+        print("   Suggestions:")
+        print("   - Increase dropout rate")
+        print("   - Add more regularization (L1/L2)")
+        print("   - Use data augmentation")
+        print("   - Reduce model complexity")
+        print("   - Collect more training data")
+        results['diagnosis'] = 'overfitting'
+    elif acc_gap < -0.1:
+        print("   [WARNING] UNDERFITTING DETECTED!")
+        print("   The model is not learning the training data well.")
+        print("   Suggestions:")
+        print("   - Increase model complexity")
+        print("   - Train for more epochs")
+        print("   - Reduce regularization")
+        print("   - Check data quality")
+        results['diagnosis'] = 'underfitting'
+    else:
+        print("   [OK] MODEL APPEARS WELL-FITTED!")
+        print("   Training and validation metrics are reasonably close.")
+        results['diagnosis'] = 'good_fit'
+    
+    # Plot overfitting detection
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
+    
+    # Accuracy plot
+    ax1.plot(train_acc, label='Training Accuracy', linewidth=2)
+    ax1.plot(val_acc, label='Validation Accuracy', linewidth=2)
+    ax1.fill_between(range(len(train_acc)), train_acc, val_acc, alpha=0.3, color='red' if acc_gap > 0.15 else 'green')
+    ax1.set_title('Accuracy: Overfitting Detection', fontsize=12)
+    ax1.set_xlabel('Epoch')
+    ax1.set_ylabel('Accuracy')
+    ax1.legend()
+    ax1.grid(True, alpha=0.3)
+    
+    # Loss plot
+    ax2.plot(train_loss, label='Training Loss', linewidth=2)
+    ax2.plot(val_loss, label='Validation Loss', linewidth=2)
+    ax2.fill_between(range(len(train_loss)), train_loss, val_loss, alpha=0.3, color='red' if loss_gap > 0.1 else 'green')
+    ax2.set_title('Loss: Overfitting Detection', fontsize=12)
+    ax2.set_xlabel('Epoch')
+    ax2.set_ylabel('Loss')
+    ax2.legend()
+    ax2.grid(True, alpha=0.3)
+    
+    plt.tight_layout()
+    if output_dir:
+        plt.savefig(os.path.join(output_dir, 'overfitting_detection.png'), dpi=150)
+    plt.show()
+    print("\n   [OK] Overfitting detection plot saved")
+    
+    return results
+
+
+def cross_validate_model(X_train, y_train, n_splits=5, output_dir=None):
+    """
+    Perform k-fold cross-validation to get more robust performance estimates.
+    
+    Args:
+        X_train: Training features
+        y_train: Training labels
+        n_splits: Number of folds (default: 5)
+        output_dir: Directory to save results
+        
+    Returns:
+        Dictionary with cross-validation results
+    """
+    print("\n" + "=" * 70)
+    print(f"{n_splits}-FOLD CROSS-VALIDATION")
+    print("=" * 70)
+    
+    # Prepare data
+    X = X_train.astype('float32')
+    y = y_train
+    
+    # Store results
+    fold_results = []
+    
+    skf = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=42)
+    
+    for fold, (train_idx, val_idx) in enumerate(skf.split(X, y), 1):
+        print(f"\nFold {fold}/{n_splits}:")
+        
+        X_fold_train, X_fold_val = X[train_idx], X[val_idx]
+        y_fold_train, y_fold_val = y[train_idx], y[val_idx]
+        
+        # Build fresh model for each fold
+        model = build_cnn_model()
+        model = compile_model(model)
+        
+        # Train
+        model.fit(
+            X_fold_train, y_fold_train,
+            validation_data=(X_fold_val, y_fold_val),
+            epochs=10,  # Reduced for cross-validation speed
+            batch_size=Config.BATCH_SIZE,
+            verbose=0
+        )
+        
+        # Evaluate
+        _, fold_acc = model.evaluate(X_fold_val, y_fold_val, verbose=0)
+        fold_results.append(fold_acc)
+        print(f"   Fold {fold} Accuracy: {fold_acc:.4f}")
+        
+        # Clear memory
+        keras.backend.clear_session()
+    
+    # Calculate statistics
+    mean_acc = np.mean(fold_results)
+    std_acc = np.std(fold_results)
+    
+    print(f"\nCross-Validation Results:")
+    print(f"   Mean Accuracy: {mean_acc:.4f}")
+    print(f"   Std Deviation: {std_acc:.4f}")
+    print(f"   Fold Results: {[f'{acc:.4f}' for acc in fold_results]}")
+    
+    results = {
+        'fold_results': fold_results,
+        'mean_accuracy': mean_acc,
+        'std_accuracy': std_acc
+    }
+    
+    return results
+
+
 def visualize_feature_maps(model, X_sample, layer_name=None, output_dir=None):
     """
     Visualize the feature maps learned by convolutional layers.
@@ -1306,6 +1485,9 @@ def run_pipeline():
     # ==========================================================================
     plot_training_history(history, Config.OUTPUT_DIR)
     
+    # Overfitting detection
+    overfitting_results = detect_overfitting(history, Config.OUTPUT_DIR)
+    
     # Feature maps visualization (using a sample)
     visualize_feature_maps(model, X_test[:1], output_dir=Config.OUTPUT_DIR)
     
@@ -1327,12 +1509,16 @@ def run_pipeline():
     print("\n" + "=" * 70)
     print("PIPELINE COMPLETE!")
     print("=" * 70)
-    print(f"\n📊 Final Results:")
+    print(f"\n[INFO] Final Results:")
     print(f"   - Test Accuracy: {test_accuracy:.4f}")
     print(f"   - Test Loss: {test_loss:.4f}")
     print(f"   - Weighted F1-Score: {results.get('f1_weighted', 'N/A')}")
     print(f"   - ROC-AUC (OvR): {results.get('roc_auc_ovr', 'N/A')}")
-    print(f"\n📁 Output Files:")
+    print(f"\n[INFO] Overfitting Detection:")
+    print(f"   - Diagnosis: {overfitting_results.get('diagnosis', 'N/A')}")
+    print(f"   - Accuracy Gap: {overfitting_results.get('accuracy_gap', 'N/A'):.4f}")
+    print(f"   - Loss Gap: {overfitting_results.get('loss_gap', 'N/A'):.4f}")
+    print(f"\n[INFO] Output Files:")
     print(f"   - Model: {model_path}")
     print(f"   - Training History: {os.path.join(Config.OUTPUT_DIR, 'training_history.csv')}")
     print(f"   - Plots: {Config.OUTPUT_DIR}/*.png")
