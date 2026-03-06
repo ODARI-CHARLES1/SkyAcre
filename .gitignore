@@ -51,6 +51,8 @@ Thumbs.db
 *.pid.lock
 
 # --- ML Model files ---
+# Exceptions for tracked model files
+!SkyAcre_cow_model/best_model.keras
 *.h5
 *.keras
 best_model.keras
