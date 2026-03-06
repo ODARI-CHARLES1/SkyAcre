@@ -17,7 +17,7 @@ import getpass
 load_dotenv()
 
 # Configuration
-MODEL_FILE = 'skyacre_cow_disease_model.h5'
+MODEL_FILE = 'SkyAcre_cow_model/best_model.keras'
 REPO_ID = None  # Set your repo_id here, e.g., "your-username/skyacre-cow-disease"
 # Or leave None to be prompted
 
