@@ -89,7 +89,7 @@ if not model_loaded:
         # Download the model file from the Space's model folder
         model_path = hf_hub_download(
             repo_id=COW_DISEASE_REPO_ID,
-            filename="SkyAcre_cow_model/best_model.keras",
+            filename="best_model.keras",
             repo_type="space"
         )
         cow_disease_model = keras.saving.load_model(model_path)
