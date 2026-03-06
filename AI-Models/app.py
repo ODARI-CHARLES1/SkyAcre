@@ -84,7 +84,7 @@ try:
 except Exception as e:
     print(f"  - ERROR loading fertilizers mapping: {e}")
 
-if dt_model and encoder_district and encoder_soil and map_crops and map_fertilizers:
+if dt_model is not None and encoder_district is not None and encoder_soil is not None and map_crops is not None and map_fertilizers is not None:
     print("Fertilizer and crop models loaded successfully!")
 else:
     print("WARNING: Some fertilizer/crop models failed to load. Endpoint may return 503.")
