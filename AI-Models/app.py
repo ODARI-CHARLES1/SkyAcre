@@ -33,17 +33,61 @@ MAP_CROPS_PATH = os.path.join(MODEL_DIR, "map_crops.pkl")
 MAP_FERT_PATH = os.path.join(MODEL_DIR, "map_fertilizers.pkl")
 
 print("Loading fertilizer and crop models...")
+dt_model = None
+encoder_district = None
+encoder_soil = None
+map_crops = None
+map_fertilizers = None
+
 try:
-    dt_model = joblib.load(MODEL_PATH)
-    encoder_district = joblib.load(ENCODER_DISTRICT_PATH)
-    encoder_soil = joblib.load(ENCODER_SOIL_PATH)
-    map_crops = joblib.load(MAP_CROPS_PATH)
-    map_fertilizers = joblib.load(MAP_FERT_PATH)
-    print("Fertilizer and crop models loaded successfully!")
+    if os.path.exists(MODEL_PATH):
+        dt_model = joblib.load(MODEL_PATH)
+        print(f"  - Loaded fertilizer model from {MODEL_PATH}")
+    else:
+        print(f"  - WARNING: Model file not found: {MODEL_PATH}")
 except Exception as e:
-    print(f"Error loading fertilizer and crop models: {e}")
-    # We don't raise the exception to allow the other model to load
-    dt_model = None
+    print(f"  - ERROR loading fertilizer model: {e}")
+
+try:
+    if os.path.exists(ENCODER_DISTRICT_PATH):
+        encoder_district = joblib.load(ENCODER_DISTRICT_PATH)
+        print(f"  - Loaded district encoder from {ENCODER_DISTRICT_PATH}")
+    else:
+        print(f"  - WARNING: Encoder file not found: {ENCODER_DISTRICT_PATH}")
+except Exception as e:
+    print(f"  - ERROR loading district encoder: {e}")
+
+try:
+    if os.path.exists(ENCODER_SOIL_PATH):
+        encoder_soil = joblib.load(ENCODER_SOIL_PATH)
+        print(f"  - Loaded soil encoder from {ENCODER_SOIL_PATH}")
+    else:
+        print(f"  - WARNING: Encoder file not found: {ENCODER_SOIL_PATH}")
+except Exception as e:
+    print(f"  - ERROR loading soil encoder: {e}")
+
+try:
+    if os.path.exists(MAP_CROPS_PATH):
+        map_crops = joblib.load(MAP_CROPS_PATH)
+        print(f"  - Loaded crops mapping from {MAP_CROPS_PATH}")
+    else:
+        print(f"  - WARNING: Crops mapping file not found: {MAP_CROPS_PATH}")
+except Exception as e:
+    print(f"  - ERROR loading crops mapping: {e}")
+
+try:
+    if os.path.exists(MAP_FERT_PATH):
+        map_fertilizers = joblib.load(MAP_FERT_PATH)
+        print(f"  - Loaded fertilizers mapping from {MAP_FERT_PATH}")
+    else:
+        print(f"  - WARNING: Fertilizers mapping file not found: {MAP_FERT_PATH}")
+except Exception as e:
+    print(f"  - ERROR loading fertilizers mapping: {e}")
+
+if dt_model and encoder_district and encoder_soil and map_crops and map_fertilizers:
+    print("Fertilizer and crop models loaded successfully!")
+else:
+    print("WARNING: Some fertilizer/crop models failed to load. Endpoint may return 503.")
 
 # --- Cow Disease Classification Model Loading ---
 
@@ -126,8 +170,21 @@ def predict_fertilizer_crop():
         if not all(f in data for f in required_features):
             return jsonify({"error": "Missing features for fertilizer/crop prediction"}), 400
 
-        district_encoded = int(encoder_district.transform([data['District']]))
-        soil_encoded = int(encoder_soil.transform([data['Soil_color']]))
+        # Validate and transform district
+        try:
+            district_encoded = int(encoder_district.transform([data['District']]))
+        except ValueError:
+            return jsonify({
+                "error": f"Invalid District value: '{data['District']}'. Must be a value seen during training."
+            }), 400
+        
+        # Validate and transform soil color
+        try:
+            soil_encoded = int(encoder_soil.transform([data['Soil_color']]))
+        except ValueError:
+            return jsonify({
+                "error": f"Invalid Soil_color value: '{data['Soil_color']}'. Must be a value seen during training."
+            }), 400
 
         features = np.array([
             district_encoded, soil_encoded, data['Nitrogen'], data['Phosphorus'],
@@ -136,8 +193,15 @@ def predict_fertilizer_crop():
 
         pred_numeric = dt_model.predict(features)[0]
 
-        predicted_crop = next(i[0] for i in map_crops if int(i[1]) == pred_numeric[0])
-        predicted_fertilizer = next(i[0] for i in map_fertilizers if int(i[1]) == pred_numeric[1])
+        # Map predictions to labels with fallback for unknown values
+        predicted_crop = next(
+            (i[0] for i in map_crops if int(i[1]) == pred_numeric[0]),
+            f"Unknown (code: {pred_numeric[0]})"
+        )
+        predicted_fertilizer = next(
+            (i[0] for i in map_fertilizers if int(i[1]) == pred_numeric[1]),
+            f"Unknown (code: {pred_numeric[1]})"
+        )
 
         return jsonify({
             "predicted_crop": predicted_crop,
