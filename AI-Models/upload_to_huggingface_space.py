@@ -49,22 +49,9 @@ def upload_model_to_space():
     # Initialize API
     api = HfApi(token=token)
     
-    # Create repository (if it doesn't exist) - using repo_type="space"
-    # Note: Space already exists, so we just need to upload the file
-    print(f"\nAccessing Space '{REPO_ID}'...")
-    try:
-        # Try to create - if it fails because it exists, that's fine
-        create_repo(
-            repo_id=REPO_ID,
-            token=token,
-            repo_type="space",
-            exist_ok=True
-        )
-        print("Space ready.")
-    except Exception as e:
-        # Space likely already exists - that's fine
-        print(f"Note: {e}")
-        print("Continuing with upload...")
+    # The Space already exists at https://huggingface.co/spaces/Storm00212/SkyAcre_cow_model
+    # Skip create_repo and directly upload the file
+    print(f"\nAccessing Space '{REPO_ID}' (already exists)...")
     
     # Upload the model file
     print(f"\nUploading {MODEL_FILE} to Hugging Face Space...")
