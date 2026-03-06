@@ -76,7 +76,7 @@ class Config:
     """Configuration settings for the poultry disease classification pipeline."""
     
     # Dataset paths
-    DATA_DIR = 'AI-Models/Data/poultry_diseases'
+    DATA_DIR = 'Data/poultry_diseases'
     OUTPUT_DIR = 'AI-Models/Output/poultry'
     
     # Image parameters
