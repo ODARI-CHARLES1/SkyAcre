@@ -51,27 +51,48 @@ COW_DISEASE_REPO_ID = "Storm00212/SkyAcre_cow_model"
 COW_DISEASE_CLASS_LABELS = {0: 'foot-and-mouth', 1: 'lumpy', 2: 'healthy'}
 cow_disease_model = None
 
-print(f"Loading cow disease model from Hugging Face repo: {COW_DISEASE_REPO_ID}...")
-try:
-    hf_path = f"hf://{COW_DISEASE_REPO_ID}"
-    cow_disease_model = keras.saving.load_model(hf_path)
-    print("Cow disease model loaded successfully from HuggingFace!")
-    cow_disease_model.summary()
-except Exception as e:
-    print(f"Error loading from HuggingFace: {e}")
-    print("Attempting to load from local model file...")
-    
-    # Try loading from local file as fallback
-    local_model_path = os.path.join(BASE_DIR, "best_model.keras")
-    if os.path.exists(local_model_path):
-        try:
-            cow_disease_model = keras.saving.load_model(local_model_path)
-            print("Cow disease model loaded successfully from local file!")
-            cow_disease_model.summary()
-        except Exception as e2:
-            print(f"Error loading local model: {e2}")
-    else:
-        print(f"Local model file not found at: {local_model_path}")
+print(f"Loading cow disease model...")
+
+# First, check for local model in SkyAcre_cow_model/ directory (new location)
+local_model_path = os.path.join(BASE_DIR, "SkyAcre_cow_model", "best_model.keras")
+
+# Fallback to old location for backwards compatibility
+old_local_model_path = os.path.join(BASE_DIR, "best_model.keras")
+
+model_loaded = False
+
+# Try loading from local path first (new location)
+if os.path.exists(local_model_path):
+    try:
+        cow_disease_model = keras.saving.load_model(local_model_path)
+        print(f"Cow disease model loaded successfully from local: {local_model_path}")
+        cow_disease_model.summary()
+        model_loaded = True
+    except Exception as e:
+        print(f"Error loading from local path: {e}")
+
+# Try old local path if new location failed
+if not model_loaded and os.path.exists(old_local_model_path):
+    try:
+        cow_disease_model = keras.saving.load_model(old_local_model_path)
+        print(f"Cow disease model loaded successfully from local (legacy): {old_local_model_path}")
+        cow_disease_model.summary()
+        model_loaded = True
+    except Exception as e:
+        print(f"Error loading from legacy local path: {e}")
+
+# Last resort: try HuggingFace (requires authentication for private repos)
+if not model_loaded:
+    print(f"Attempting to load from HuggingFace repo: {COW_DISEASE_REPO_ID}...")
+    try:
+        hf_path = f"hf://{COW_DISEASE_REPO_ID}"
+        cow_disease_model = keras.saving.load_model(hf_path)
+        print("Cow disease model loaded successfully from HuggingFace!")
+        cow_disease_model.summary()
+        model_loaded = True
+    except Exception as e:
+        print(f"Error loading from HuggingFace: {e}")
+        print("HuggingFace model not available. Cow disease prediction will use fallback.")
 
 if cow_disease_model is None:
     print("WARNING: Cow disease model is not available. /predict/cow-disease endpoint will return 503.")
