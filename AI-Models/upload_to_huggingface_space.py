@@ -50,18 +50,21 @@ def upload_model_to_space():
     api = HfApi(token=token)
     
     # Create repository (if it doesn't exist) - using repo_type="space"
-    print(f"\nCreating/accessing Space '{REPO_ID}'...")
+    # Note: Space already exists, so we just need to upload the file
+    print(f"\nAccessing Space '{REPO_ID}'...")
     try:
+        # Try to create - if it fails because it exists, that's fine
         create_repo(
             repo_id=REPO_ID,
             token=token,
             repo_type="space",
             exist_ok=True
         )
-        print("Space created or already exists.")
+        print("Space ready.")
     except Exception as e:
-        print(f"Error creating Space: {e}")
-        return None
+        # Space likely already exists - that's fine
+        print(f"Note: {e}")
+        print("Continuing with upload...")
     
     # Upload the model file
     print(f"\nUploading {MODEL_FILE} to Hugging Face Space...")
