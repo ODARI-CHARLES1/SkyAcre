@@ -7,6 +7,7 @@ pnpm-debug.log*
 package-lock.json
 yarn.lock
 .pnpm-debug.log
+poultry_diseases
 
 # --- Build outputs ---
 .dist/
