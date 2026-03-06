@@ -45,7 +45,7 @@ from tensorflow.keras.callbacks import (
     CSVLogger
 )
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from tensorflow.keras.regularization import l2
+from tensorflow.keras.regularizers import l2
 
 # Sklearn imports
 from sklearn.model_selection import train_test_split, StratifiedKFold
