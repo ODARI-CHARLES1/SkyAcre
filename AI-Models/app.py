@@ -172,7 +172,7 @@ def predict_fertilizer_crop():
 
         # Validate and transform district
         try:
-            district_encoded = int(encoder_district.transform([data['District']]))
+            district_encoded = int(encoder_district.transform([data['District']])[0])
         except ValueError:
             return jsonify({
                 "error": f"Invalid District value: '{data['District']}'. Must be a value seen during training."
@@ -180,7 +180,7 @@ def predict_fertilizer_crop():
         
         # Validate and transform soil color
         try:
-            soil_encoded = int(encoder_soil.transform([data['Soil_color']]))
+            soil_encoded = int(encoder_soil.transform([data['Soil_color']])[0])
         except ValueError:
             return jsonify({
                 "error": f"Invalid Soil_color value: '{data['Soil_color']}'. Must be a value seen during training."
