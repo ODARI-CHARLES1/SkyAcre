@@ -85,8 +85,14 @@ if not model_loaded and os.path.exists(old_local_model_path):
 if not model_loaded:
     print(f"Attempting to load from HuggingFace repo: {COW_DISEASE_REPO_ID}...")
     try:
-        hf_path = f"hf://{COW_DISEASE_REPO_ID}"
-        cow_disease_model = keras.saving.load_model(hf_path)
+        from huggingface_hub import hf_hub_download
+        # Download the model file from the Space's model folder
+        model_path = hf_hub_download(
+            repo_id=COW_DISEASE_REPO_ID,
+            filename="SkyAcre_cow_model/best_model.keras",
+            repo_type="space"
+        )
+        cow_disease_model = keras.saving.load_model(model_path)
         print("Cow disease model loaded successfully from HuggingFace!")
         cow_disease_model.summary()
         model_loaded = True
