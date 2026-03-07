@@ -562,7 +562,8 @@ def create_data_augmentation():
         #   - 1.2 = 120% as bright (brighter)
         # Real images have varying lighting conditions
         brightness_range=[0.8, 1.2],
-        contrast_range=[0.8, 1.2],  # Similar for contrast
+        # Note: Keras ImageDataGenerator does not support contrast_range directly.
+        # For contrast augmentation, use tf.keras.layers.RandomContrast in the model.
         
         # -------------------------------------------------------------------------
         # ZOOM: Randomly zoom in/out
