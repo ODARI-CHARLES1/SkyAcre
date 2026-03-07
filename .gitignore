@@ -17,7 +17,7 @@ out/
 coverage/
 .cache/
 .tmp/
-.npy
+*.npy
 # --- Env & config ---
 .env
 .env.local
