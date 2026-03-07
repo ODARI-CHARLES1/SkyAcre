@@ -1118,7 +1118,7 @@ def create_callbacks(output_dir):
         # Model Checkpoint - Save best model
         # ==========================================================================
         ModelCheckpoint(
-            os.path.join(output_dir, 'best_model.keras'),
+            os.path.join(output_dir, 'best_poultry_disease_model.keras'),
             monitor='val_accuracy',
             save_best_only=True,  # Only save if val_accuracy improved
             verbose=1,
