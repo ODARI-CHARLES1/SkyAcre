@@ -7,6 +7,10 @@ pnpm-debug.log*
 package-lock.json
 yarn.lock
 .pnpm-debug.log
+<<<<<<< HEAD
+=======
+poultry_diseases
+>>>>>>> 513ced589ae307e964e6765f94a681e3871f69e7
 
 # --- Build outputs ---
 .dist/
@@ -16,7 +20,11 @@ out/
 coverage/
 .cache/
 .tmp/
+<<<<<<< HEAD
 
+=======
+*.npy
+>>>>>>> 513ced589ae307e964e6765f94a681e3871f69e7
 # --- Env & config ---
 .env
 .env.local
@@ -49,8 +57,25 @@ Thumbs.db
 *.seed
 *.pid.lock
 
+<<<<<<< HEAD
+=======
+# --- ML Model files ---
+# Exceptions for tracked model files
+!SkyAcre_cow_model/best_model.keras
+*.h5
+*.keras
+best_model.keras
+skyacre_cow_disease_model.keras
+training_history.png
+>>>>>>> 513ced589ae307e964e6765f94a681e3871f69e7
 
 .dist
 .env
 package-lock.json
+<<<<<<< HEAD
 .package-lock.json
+=======
+.package-lock.json
+# Ignore preprocessed numpy arrays
+AI-Models/Data/preprocessed/*.npy
+>>>>>>> 513ced589ae307e964e6765f94a681e3871f69e7

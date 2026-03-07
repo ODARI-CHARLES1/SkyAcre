@@ -7,4 +7,11 @@ seaborn>=0.11.0
 flask>=2.3.0
 flask-cors>=3.1.0
 opendatasets>=0.1.22
+<<<<<<< HEAD
 python-dotenv>=1.0.0  
+=======
+python-dotenv>=1.0.0
+tensorflow>=2.12.0
+Pillow>=9.5.0
+huggingface_hub>=0.19.0
+>>>>>>> 513ced589ae307e964e6765f94a681e3871f69e7

@@ -1,0 +1,26 @@
+{
+  "img_height": 224,
+  "img_width": 224,
+  "color_mode": "rgb",
+  "data_dir": "Data/archive (3)/Cows datasets",
+  "output_dir": "Data/preprocessed",
+  "classes": {
+    "foot-and-mouth": 0,
+    "lumpy": 1,
+    "healthy": 2
+  },
+  "train_ratio": 0.7,
+  "val_ratio": 0.15,
+  "test_ratio": 0.15,
+  "augmentation": {
+    "rotation_range": 20,
+    "width_shift_range": 0.2,
+    "height_shift_range": 0.2,
+    "shear_range": 0.15,
+    "zoom_range": 0.2,
+    "horizontal_flip": true,
+    "fill_mode": "nearest"
+  },
+  "normalize": true,
+  "normalization_factor": 255.0
+}

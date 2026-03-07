@@ -27,7 +27,11 @@ const Navbar = () => {
   return (
     // Header element with styling for the navbar
     <header className="text-gray-600 shadow-sm w-full bg-white body-font">
+<<<<<<< HEAD
       // Container div with max width and flex layout
+=======
+
+>>>>>>> 513ced589ae307e964e6765f94a681e3871f69e7
       <div className="container mx-auto flex p-5 items-center justify-between">
         {/* Logo section */}
         <a
@@ -35,7 +39,11 @@ const Navbar = () => {
           className="flex title-font font-medium items-center text-gray-900 cursor-pointer"
         >
           <span className="ml-3 text-3xl">
+<<<<<<< HEAD
             Sky<span className="text-green-500">A</span>cre // Logo text with green 'A'
+=======
+            Sky<span className="text-green-500">A</span>cre 
+>>>>>>> 513ced589ae307e964e6765f94a681e3871f69e7
           </span>
         </a>
 
@@ -61,7 +69,11 @@ const Navbar = () => {
           </a>
         </nav>
 
+<<<<<<< HEAD
         // Conditional rendering: show UserButton if signed in, otherwise show sign in/up buttons
+=======
+
+>>>>>>> 513ced589ae307e964e6765f94a681e3871f69e7
         {isSignedIn ? (
           <UserButton /> // Clerk's user button for signed-in users
         ) : (
@@ -113,7 +125,11 @@ const Navbar = () => {
             <a onClick={() => { navigate("/faqs"); setMenuOpen(false); }} className="cursor-pointer hover:text-green-500">
               FAQs
             </a>
+<<<<<<< HEAD
             // Conditional auth buttons for mobile
+=======
+    
+>>>>>>> 513ced589ae307e964e6765f94a681e3871f69e7
             {isSignedIn ? (
               <UserButton />
             ) : (
